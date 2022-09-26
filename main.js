@@ -1,5 +1,10 @@
 import './style.css'
 import * as THREE from "three";
+import * as dat from "lil-gui";
+import { MaxEquation } from 'three';
+
+//UIデバッグを実装
+const gui = new dat.GUI();
 
 //キャンバスの取得
 const canvas = document.querySelector(".webgl");
@@ -39,6 +44,10 @@ const material = new THREE.MeshPhysicalMaterial({
   roughness: 0.37,
   flatShading: true,
 });
+
+gui.addColor(material, "color");
+gui.add(material, "metalness").min(0).max(1).step(0.001);
+gui.add(material, "roughness").min(0).max(1).step(0.001);
 
 //Mesh
 const mesh1 = new THREE.Mesh(new THREE.TorusGeometry(1, 0.4, 16, 60), material);
