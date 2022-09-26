@@ -135,6 +135,10 @@ const animate = () => {
     mesh.rotation.x += 0.6 * getDeltaTime;
     mesh.rotation.y += 0.3 * getDeltaTime;
   }
+
+  //カメラの制御
+  camera.position.x += cursor.x * getDeltaTime * 2;
+  camera.position.y += -cursor.y * getDeltaTime * 2;
   
   window.requestAnimationFrame(animate);
 };
