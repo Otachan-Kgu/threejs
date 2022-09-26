@@ -84,8 +84,24 @@ window.addEventListener("resize", ()=> {
   renderer.setPixelRatio(window.devicePixelRatio); 
 });
 
-//アニメーション
+//ホイールを実装
+let speed = 0;
+let rotation = 0;
+window.addEventListener("wheel", (event) => {
+  speed += event.deltaY * 0.0002; 
+  console.log(speed);
+});
 
+function rot(){
+  rotation += speed;
+  rotation *= 0.93;
+  mesh1.position.x = rotation;
+  window.requestAnimationFrame(rot);
+}
+
+rot();
+
+//アニメーション
 const clock = new THREE.Clock();
 
 const animate = () => {
