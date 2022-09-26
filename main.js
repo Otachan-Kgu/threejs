@@ -2,6 +2,8 @@ import './style.css'
 import * as THREE from "three";
 import * as dat from "lil-gui";
 import { MaxEquation, Mesh } from 'three';
+import { BufferAttribute } from 'three';
+import { PointsMaterial } from 'three';
 
 //UIデバッグを実装
 const gui = new dat.GUI();
@@ -54,6 +56,30 @@ const mesh1 = new THREE.Mesh(new THREE.TorusGeometry(1, 0.4, 16, 60), material);
 const mesh2 = new THREE.Mesh(new THREE.OctahedronGeometry(), material);
 const mesh3 = new THREE.Mesh(new THREE.TorusKnotGeometry(0.8, 0.35, 100, 16), material);
 const mesh4 = new THREE.Mesh(new THREE.IcosahedronGeometry(), material);
+
+//パーティクルの追加
+//ジオメトリ
+const particlesGeometry = new THREE.BufferGeometry();
+const particlesCount = 700;
+
+const positionArray = new Float32Array(particlesCount * 3);
+
+for (let i = 0; i < particlesCount * 3; i++){
+  positionArray[i] = (Math.random() - 0.5) * 10;
+}
+particlesGeometry.setAttribute(
+  "position", new THREE.BufferAttribute(positionArray, 3)
+);
+
+//マテリアル
+const particlesMaterial = new THREE.PointsMaterial({
+  size: 0.025,
+  color: "#ffffff",
+})
+
+//メッシュ化
+const particles = new THREE.Points(particlesGeometry, particlesMaterial);
+scene.add(particles);
 
 //回転用に位置を設定する
 mesh1.position.set(2, 0, 0);
@@ -137,8 +163,8 @@ const animate = () => {
   }
 
   //カメラの制御
-  camera.position.x += cursor.x * getDeltaTime * 2;
-  camera.position.y += -cursor.y * getDeltaTime * 2;
+  camera.position.x += cursor.x * getDeltaTime * 1.5;
+  camera.position.y += -cursor.y * getDeltaTime * 1.5;
   
   window.requestAnimationFrame(animate);
 };
