@@ -62,6 +62,7 @@ mesh3.position.set(2, 0, -6);
 mesh4.position.set(5, 0, 3);
 
 scene.add(mesh1, mesh2, mesh3, mesh4);
+const meshes = [mesh1, mesh2, mesh3, mesh4];
 
 //Light
 const directionalLight = new THREE.DirectionalLight("#ffffff", 4);
@@ -86,6 +87,13 @@ window.addEventListener("resize", ()=> {
 //アニメーション
 const animate = () => {
   renderer.render(scene, camera);
+
+  //meshを回転させる
+  for (const mesh of meshes){
+    mesh.rotation.x += 0.01;
+    mesh.rotation.y += 0.01;
+  }
+  
   window.requestAnimationFrame(animate);
 };
 
