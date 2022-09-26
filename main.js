@@ -78,6 +78,6 @@ window.addEventListener("resize", ()=> {
 const animate = () => {
   renderer.render(scene, camera);
   window.requestAnimationFrame(animate);
-}
+};
 
 animate();
