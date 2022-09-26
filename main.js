@@ -1,7 +1,7 @@
 import './style.css'
 import * as THREE from "three";
 import * as dat from "lil-gui";
-import { MaxEquation } from 'three';
+import { MaxEquation, Mesh } from 'three';
 
 //UIデバッグを実装
 const gui = new dat.GUI();
@@ -89,13 +89,22 @@ let speed = 0;
 let rotation = 0;
 window.addEventListener("wheel", (event) => {
   speed += event.deltaY * 0.0002; 
-  console.log(speed);
 });
 
 function rot(){
   rotation += speed;
   rotation *= 0.93;
-  mesh1.position.x = rotation;
+
+  //ジオメトリ全体を回転させる
+  mesh1.position.x = 2 + 3.8 * Math.cos(rotation);
+  mesh1.position.z = -3 + 3.8 * Math.sin(rotation);
+  mesh2.position.x = 2 + 3.8 * Math.cos(rotation + Math.PI / 2);
+  mesh2.position.z = -3 + 3.8 * Math.sin(rotation + Math.PI / 2);
+  mesh3.position.x = 2 + 3.8 * Math.cos(rotation + Math.PI);
+  mesh3.position.z = -3 + 3.8 * Math.sin(rotation + Math.PI);
+  mesh4.position.x = 2 + 3.8 * Math.cos(rotation + 3 * (Math.PI / 2));
+  mesh4.position.z = -3 + 3.8 * Math.sin(rotation + 3 * (Math.PI / 2));
+
   window.requestAnimationFrame(rot);
 }
 
